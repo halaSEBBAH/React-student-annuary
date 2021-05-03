@@ -4,7 +4,7 @@ import './App.css';
 import {Navigation} from './Components/Navigation';
 import {Department} from './Components/Department/Department';
 import {Home} from './Components/Home';
-import {Employee} from './Components/Employee/Employee';
+import {Student} from './Components/Student/Student';
 
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
@@ -24,7 +24,7 @@ function App() {
       <Switch>
         <Route path='/' component={Home} exact/>
         <Route path='/department' component={Department}/>
-        <Route path='/employee' component={Employee}/>
+        <Route path='/student' component={Student}/>
       </Switch>
 
       </div>

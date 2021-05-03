@@ -33,7 +33,7 @@ export class Department extends Component{
             fetch(process.env.REACT_APP_API+'department/'+depid,{
                 method:'DELETE',
                 header:{'Accept':'application/json',
-            'Content-Type':'application/json'}
+                        'Content-Type':'application/json' }
             })
         }
     }
@@ -57,24 +57,24 @@ export class Department extends Component{
                                 <td>{dep.DepartmentId}</td>
                                 <td>{dep.DepartmentName}</td>
                                 <td>
-<ButtonToolbar>
-    <Button className="mr-2" variant="info"
-    onClick={()=>this.setState({editModalShow:true,
-        depid:dep.DepartmentId,depname:dep.DepartmentName})}>
-            Edit
-        </Button>
+                                    <ButtonToolbar>
+                                            <Button className="mr-2" variant="info"
+                                                onClick={()=>this.setState({editModalShow:true,
+                                                depid:dep.DepartmentId,depname:dep.DepartmentName})}>
+                                                    Edit
+                                            </Button>
 
-        <Button className="mr-2" variant="danger"
-    onClick={()=>this.deleteDep(dep.DepartmentId)}>
-            Delete
-        </Button>
+                                            <Button className="mr-2" variant="danger"
+                                                onClick={()=>this.deleteDep(dep.DepartmentId)}>
+                                                Delete
+                                            </Button>
 
-        <EditDepModal show={this.state.editModalShow}
-        onHide={editModalClose}
-        depid={depid}
-        depname={depname}/>
-</ButtonToolbar>
-
+                                            <EditDepModal show={this.state.editModalShow}
+                                            onHide={editModalClose}
+                                            depid={depid}
+                                            depname={depname}/>
+                                    </ButtonToolbar>
+                                    
                                 </td>
 
                             </tr>)}
