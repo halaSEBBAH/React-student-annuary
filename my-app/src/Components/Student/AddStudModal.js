@@ -12,7 +12,7 @@ export class AddStudModal extends Component{
         fetch(process.env.REACT_APP_API+'student/',{
             method:'POST',
             headers:{
-                'Accept':'application/json',
+                'Accept':'application/json', 
                 'Content-Type':'application/json'
             },
             body:JSON.stringify({
@@ -22,7 +22,7 @@ export class AddStudModal extends Component{
                 DateOfJoining:event.target.DateOfJoining.value,
                 PhotoFileName:"smth.png"
             }) 
-        })
+        })      
         .then(res=>res.json())
         .then((result)=>{
             alert(result);
@@ -43,7 +43,7 @@ export class AddStudModal extends Component{
                         <Modal.Title id="contained-modal-title-vcenter">
                             Add Student
                         </Modal.Title>
-                    </Modal.Header>
+                    </Modal.Header>  
 
                     <Modal.Body> 
                         <Row>

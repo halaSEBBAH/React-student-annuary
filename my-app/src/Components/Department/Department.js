@@ -37,6 +37,7 @@ export class Department extends Component{
             })
         }
     }
+    
     render(){
         const {deps, depid,depname}=this.state;
         let addModalClose=()=>this.setState({addModalShow:false});
@@ -74,7 +75,7 @@ export class Department extends Component{
                                             depid={depid}
                                             depname={depname}/>
                                     </ButtonToolbar>
-                                    
+
                                 </td>
 
                             </tr>)}

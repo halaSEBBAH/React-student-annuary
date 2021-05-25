@@ -6,7 +6,7 @@ export class AddStudModal2 extends Component{
     constructor(props){
         super(props);
         this.handleSubmit=this.handleSubmit.bind(this);
-    }
+    }  
 
 
 

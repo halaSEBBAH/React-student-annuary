@@ -11,7 +11,7 @@ export class EditStudModal extends Component {
         var name = "smth.png"
         event.preventDefault();
         fetch(process.env.REACT_APP_API+'student/',{
-            method:'POST',
+            method:'PUT',
             headers:{
                 'Accept':'application/json',
                 'Content-Type':'application/json'

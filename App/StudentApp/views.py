@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt 
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse 
-from StudentApp.models import Students, Departments
-from StudentApp.serializers import StudentSerializer, DepartmentSerializer
+from StudentApp.models import Students, Departments, Articles
+from StudentApp.serializers import StudentSerializer, DepartmentSerializer ,ArticleSerializer
 from django.core.files.storage import default_storage
 
 
@@ -70,6 +70,29 @@ def studentApi(request, id=0):
         student.delete()
         return JsonResponse("Deleted Successfully", safe=False)
 
+
+
+@csrf_exempt
+def articleApi(request, id=0):
+
+    if request.method=='GET' :
+        articles = Articles.objects.all()
+        articles_serializer = ArticleSerializer(articles, many=True)
+        return JsonResponse(articles_serializer.data,safe=False)
+
+    
+    elif request.method=='POST' :
+        article_data = JSONParser().parse(request)
+        article_serializer = ArticleSerializer(data=article_data)
+        if article_serializer.is_valid():
+            article_serializer.save()
+            return JsonResponse("Added Successfully",safe=False)
+        return JsonResponse("Failed to add",safe=False)
+
+    elif request.method== 'DELETE' :
+        article = Articles.objects.get(ArticleId=id)
+        article.delete()
+        return JsonResponse("Deleted Successfully", safe=False)
 
 
 @csrf_exempt

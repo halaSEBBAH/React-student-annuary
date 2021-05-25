@@ -15,5 +15,8 @@ class Students(models.Model):
     DateOfJoining = models.DateField()
     PhotoFileName = models.CharField(max_length=100)
     
-    
 
+
+class Articles(models.Model):
+    ArticleId = models.AutoField(primary_key=True)
+    ArticleContent = models.TextField()

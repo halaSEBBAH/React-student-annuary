@@ -44,7 +44,7 @@ export class EditDepModal extends Component{
                         <Row>
                             <Col sm={6}>
                                 <Form onSubmit={this.handleSubmit}>
-                                <Form.Group controlId="DepartmentId">
+                                    <Form.Group controlId="DepartmentId">
                                         <Form.Label>DepartmentId</Form.Label>
                                         <Form.Control type="text" name="DepartmentId" required
                                         disabled
