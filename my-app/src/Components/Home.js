@@ -1,17 +1,18 @@
 
 import React , {Component} from 'react';
-import {Badge} from 'react-bootstrap';
+import {Badge, Container,Jumbotron, Button, ButtonToolbar} from 'react-bootstrap';
+import {AddArtModal} from './AddArtModal';
 
 
 export class Home extends Component{
 
     constructor(props){
         super(props);
-        this.state={articles:[]} 
+        this.state={articles:[],addModalShow:false} 
     }
 
     refreshList(){
-        fetch(process.env.REACT_APP_API+'home')
+        fetch(process.env.REACT_APP_API+'article')
         .then(response=>response.json()) 
         .then(data=>{ 
             this.setState({articles:data});
@@ -27,14 +28,7 @@ export class Home extends Component{
         this.refreshList();
     }
 
-    deleteStud(studid){
-        if(window.confirm('Are you sure?')){
-            fetch(process.env.REACT_APP_API+'student/'+studid,{
-                method:'DELETE',
-                header:{'Accept':'application/json', 'Content-Type':'application/json' } 
-            })
-        }
-    }
+   
 
 
     render(){
@@ -43,7 +37,28 @@ export class Home extends Component{
         return(
             <div> 
                 <Badge variant="info">New</Badge>
-                {articles.map(article => (<div>{article.ArticleContent}</div>))} 
+                
+                    
+                {articles.reverse().map(article => ( 
+                    <Jumbotron fluid>
+                        <Container>
+                            <h1> {article.ArticleTitle}</h1>
+                            <p>
+                                {article.ArticleContent}
+                            </p>
+                        </Container>
+                    </Jumbotron>
+                ))} 
+                    
+
+                <ButtonToolbar>
+                    <Button variant='primary' onClick={()=>this.setState({addModalShow:true})}>
+                        Add Article
+                    </Button>
+
+                    <AddArtModal show={this.state.addModalShow} onHide={()=>this.setState({addModalShow:false})}/>
+                </ButtonToolbar>
+               
             </div>
         );
     }

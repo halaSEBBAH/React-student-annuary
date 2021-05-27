@@ -2,7 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-
 class Departments(models.Model):
     DepartmentId = models.AutoField(primary_key=True)
     DepartmentName = models.CharField(max_length=100)
@@ -16,10 +15,15 @@ class Students(models.Model):
     PhotoFileName = models.CharField(max_length=100)
     
 
-
 class Articles(models.Model):
     ArticleId = models.AutoField(primary_key=True)
+    ArticleTitle = models.TextField()
     ArticleContent = models.TextField()
 
 
     
+
+
+
+
+

@@ -18,7 +18,7 @@ class StudentSerializer(serializers.ModelSerializer):
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta :
         model = Articles
-        fields = ('ArticleId', 'ArticleContent')
+        fields = ('ArticleId','ArticleTitle', 'ArticleContent')
 
 
 
