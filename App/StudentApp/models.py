@@ -20,3 +20,6 @@ class Students(models.Model):
 class Articles(models.Model):
     ArticleId = models.AutoField(primary_key=True)
     ArticleContent = models.TextField()
+
+
+    

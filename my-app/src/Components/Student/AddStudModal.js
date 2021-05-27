@@ -1,11 +1,28 @@
 import React,{Component} from 'react';
-import {Modal,Button, Row, Col, Form} from 'react-bootstrap';
+import {Modal,Button, Row, Col, Form, Image} from 'react-bootstrap';
 
 export class AddStudModal extends Component{
     constructor(props){
         super(props);
+        this.state={deps:[]};
         this.handleSubmit=this.handleSubmit.bind(this);
+        this.handleFileSelected=this.handleFileSelected.bind(this);
+        
     }
+
+
+    photofilename = "anonymous.png"
+    imagesrc = process.env.REACT_APP_PHOTOPATH + this.photofilename;
+
+
+    componentDidMount(){
+        fetch(process.env.REACT_APP_API+'department')
+        .then(response=>response.json())
+        .then(data=>{
+            this.setState({deps:data});
+        });
+    }
+
 
     handleSubmit(event){
         event.preventDefault();
@@ -15,12 +32,12 @@ export class AddStudModal extends Component{
                 'Accept':'application/json', 
                 'Content-Type':'application/json'
             },
-            body:JSON.stringify({
+            body:JSON.stringify({ 
                 StudentId:null, 
                 StudentName:event.target.StudentName.value,
-                Department:event.target.DepartmentName.value,
+                Department: event.target.DepartmentName.value,
                 DateOfJoining:event.target.DateOfJoining.value,
-                PhotoFileName:"smth.png"
+                PhotoFileName:this.photofilename
             }) 
         })      
         .then(res=>res.json())
@@ -32,6 +49,29 @@ export class AddStudModal extends Component{
         })
     }
 
+
+    handleFileSelected(event){
+        event.preventDefault();
+        this.photofilename=event.target.files[0].name;
+        const formData = new FormData();
+        formData.append(
+            "myFile",
+            event.target.files[0],
+            event.target.files[0].name
+        );
+        fetch(process.env.REACT_APP_API+'Student/SaveFile',{
+            method:'POST',
+            body:formData
+        })
+        .then(res=>res.json())
+        .then((result)=>{
+            this.imagesrc=process.env.REACT_APP_PHOTOPATH+result;
+        },
+        (error)=>{
+            alert('Failed');
+        })
+    }
+  
 
     render(){
         return (
@@ -48,31 +88,42 @@ export class AddStudModal extends Component{
                     <Modal.Body> 
                         <Row>
                             <Col sm={6}>
-
                                 <Form onSubmit={this.handleSubmit}>
+
                                     <Form.Group controlId="StudentName">
                                         <Form.Label>Student Name</Form.Label>
                                         <Form.Control type="text" name="StudentName" required 
                                         placeholder="Student Name"/>
                                     </Form.Group>
+
                                     <Form.Group controlId="DepartmentName">
-                                        <Form.Label>Department Name</Form.Label>
-                                        <Form.Control type="text" name="DepartmentName" required 
-                                        placeholder="Department Name"/>
+                                        <Form.Label>Department</Form.Label>
+                                        <Form.Control as="select">
+                                        {this.state.deps.map(dep=>
+                                            <option key={dep.DepartmentId}>{dep.DepartmentName}</option>)}
+                                        </Form.Control>
                                     </Form.Group>
+
                                     <Form.Group controlId="DateOfJoining">
                                         <Form.Label>Date of Joining</Form.Label>
                                         <Form.Control type="date" name="DateOfJoining" required 
                                         placeholder="Date Of Joining"/>
                                     </Form.Group>
+
                                     <Form.Group>
                                         <Button variant="primary" type="submit">
-                                            Add Department
+                                            Add Student
                                         </Button> 
                                     </Form.Group>
-                                </Form>
 
+                                </Form>
                             </Col>
+                            
+                            <Col sm={6}>
+                                <Image width="200px" height="200px" src={this.imagesrc}/>
+                                <input onChange={this.handleFileSelected} type="File"/>
+                            </Col>
+
                         </Row>
                     </Modal.Body>
 
@@ -87,6 +138,7 @@ export class AddStudModal extends Component{
     }
 
 }
+
 
 
 

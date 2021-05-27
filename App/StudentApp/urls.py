@@ -16,3 +16,9 @@ urlpatterns = [
     url(r'^home/([0-9]+)$', views.articleApi),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+
+
+
+
+
+

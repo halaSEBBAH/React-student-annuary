@@ -40,7 +40,7 @@ export class Student extends Component{
 
 
     render(){
-        let {studs, studid, studname, depart, dateOfJoin } =  this.state;
+        let {studs, studid, studname, depart,photofilename, dateOfJoin } =  this.state;
  
         
         return(
@@ -52,7 +52,8 @@ export class Student extends Component{
                     <th>StudentName</th>
                     <th>Department</th>
                     <th>DateOfJoining</th>
-                    <th>PhotoFileName</th>
+                    <th>Options</th>
+                    
                 </tr>
             </thead>
 
@@ -62,31 +63,35 @@ export class Student extends Component{
                             <td>{stu.StudentName}    </td>
                             <td>{stu.Department}     </td>
                             <td>{stu.DateOfJoining}  </td>
-                            <td>{stu.PhotoFileName}  </td>
+                            
                             <td>
                                 <ButtonToolbar>
-                                    <Button className="mr-2" variant="danger"
+                                    <Button className="mr-2" variant="info"
                                         onClick={()=>this.setState({
                                             editModalShow:true,
                                             studid :stu.StudentId,
                                             studname :  stu.StudentName,
                                             depart : stu.Department,
                                             dateOfJoin : stu.DateOfJoining,
+                                            photofilename:stu.PhotoFileName
                                     })} >
                                         Edit
                                     </Button>
+
+                                   
+
+                                    <Button className="mr-2" variant="danger"
+                                        onClick={()=>this.deleteStud(stu.StudentId)}>
+                                        Delete 
+                                    </Button>  
 
                                     <EditStudModal show={this.state.editModalShow}
                                         onHide={()=>{this.setState({editModalShow:false})}} 
                                         studid = {studid} 
                                         studname = {studname} 
                                         depart = {depart} 
-                                        dateOfJoin = {dateOfJoin} />
-
-                                    <Button className="mr-2" variant="danger"
-                                        onClick={()=>this.deleteStud(stu.StudentId)}>
-                                        Delete 
-                                    </Button>  
+                                        dateOfJoin = {dateOfJoin}
+                                        photofilename={photofilename} />
 
                                 </ButtonToolbar>
                             </td>
